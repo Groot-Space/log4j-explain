@@ -5,7 +5,7 @@ log4j는 전 세계적으로 인기있는 logging library로 Mincraft, Apple iCl
 
 
 
-취약점은 JndiManager.java 의 JNDI lookup 기능에서 발견되었습니다.
+**취약점은 JndiManager.java 의 JNDI lookup 기능에서 발견되었습니다.**
 
 public <T> T lookup(final String name) throws NamingException {
         return (T) this.context.lookup(name);
@@ -26,6 +26,7 @@ JNDI와 JNDI Injection은 [하루한줄] CVE-2021-2109 : 오라클 Weblogic Serv
 
 패치는 lookup의 매개변수 name에 전달되는 프로토콜 및 ldap 서버, 클래스에 대한 필터를 추가하는 코드를 추가하는 것으로 이루어졌습니다.
 
+```java
 public synchronized <T> T lookup(final String name) throws NamingException {
         try {
             URI uri = new URI(name);
@@ -73,3 +74,4 @@ public synchronized <T> T lookup(final String name) throws NamingException {
             }
         } catch (URISyntaxException ex) {
             // This is OK.
+```
